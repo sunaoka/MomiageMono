@@ -1,6 +1,6 @@
-from unicodedata import east_asian_width
 import bisect
 
+from unicodedata import east_asian_width
 
 UNICODE_BLOCK_NO = (0x0000, 0x1FFFFF, "No_Block")
 UNICODE_BLOCKS: list[tuple[int, int, str]] = [
@@ -423,10 +423,8 @@ def unicode_block_of(codepoint: int) -> tuple[int, int, str]:
         return UNICODE_BLOCK_NO
 
     block_start, block_end, _ = UNICODE_BLOCKS[block_index]
-    if block_start <= codepoint and codepoint <= block_end:
-        return UNICODE_BLOCKS[block_index]
-    else:
-        return UNICODE_BLOCK_NO
+
+    return UNICODE_BLOCKS[block_index] if block_start <= codepoint <= block_end else UNICODE_BLOCK_NO
 
 
 def target_width_of(codepoint: int) -> str:

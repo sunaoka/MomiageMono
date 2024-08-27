@@ -1,7 +1,8 @@
 import sys
-from mmtool.unicode import target_width_of, block_width_of, unicode_block_of
+
 import fontforge
 
+from mmtool.unicode import target_width_of, block_width_of, unicode_block_of
 
 font = fontforge.open(sys.argv[1])
 font_tag = sys.argv[2]
@@ -17,7 +18,7 @@ for glyph in font.glyphs():
 
     block_info = block_width_of(block_name)
     target_width = target_width_of(codepoint)
-    glyph_width = "full" if glyph.width / base_em > 0.95 else "half"
+    GLYPH_WIDTH = "full" if glyph.width / base_em > 0.95 else "half"
 
     if block_info is None:
         continue
@@ -31,11 +32,11 @@ for glyph in font.glyphs():
         # print(f"[I] {str_expr} will not be copied, skipping")
         continue
 
-    if target_width != glyph_width:
+    if target_width != GLYPH_WIDTH:
         print(f"[E] {str_expr} has different width")
         print(f"    Unicode Block    : {block_name}")
         print(f"    East Asian Width : {target_width}")
-        print(f"    Glyph            : {glyph_width}")
+        print(f"    Glyph            : {GLYPH_WIDTH}")
         continue
 
     # print(f"[I] {str_expr} has consistent width: {block_width}")

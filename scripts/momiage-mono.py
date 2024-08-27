@@ -1,14 +1,20 @@
+#!/usr/bin/env python
+
+
+import sys
 from datetime import date
-from math import radians
 from pathlib import Path
+from typing import Any
+
+import fontforge
+import psMat
+from math import radians
+
 from mmtool import font_action
 from mmtool.data import Style, Target, REPO_DIST
 from mmtool.unicode import block_width_of, unicode_block_of, target_width_of
-import fontforge
-import psMat
 
-
-GENEI_TRANSFORMS: dict[tuple[str, str]] = {
+GENEI_TRANSFORMS: dict[tuple[str, bool], Any] = {
     ("uniform", False): font_action.compose_transforms([
         psMat.scale(1.1, 1.1),
         psMat.translate(102, 0)
@@ -68,8 +74,7 @@ TARGETS = [
 
 
 def _copy_genei_mono_gothic(font: fontforge.font, target: Target):
-    target_style = target.style()
-    make_oblique = target_style.is_italic()
+    make_oblique = target.style().is_italic()
 
     gemg_font = fontforge.open(target.gemg_path())
     gemg_font.em = 2048

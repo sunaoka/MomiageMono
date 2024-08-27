@@ -1,8 +1,10 @@
 from collections.abc import Callable
 from functools import reduce
-from .data import Target
+
 import fontforge
 import psMat
+
+from .data import Target
 
 
 def compose_transforms(transforms: list[tuple]) -> tuple:
@@ -72,7 +74,7 @@ def set_info(font: fontforge.font, target: Target):
     target_style = target.style()
 
     font.fontname = f"MomiageMono-{target_style.subfamily_id()}"
-    font.familyname = f"Momiage Mono"
+    font.familyname = "Momiage Mono"
     font.weight = target_style.weight_name()
     font.italicangle = -9 if target_style.is_italic() else 0
     font.os2_weight = target_style.weight_value()
@@ -90,8 +92,8 @@ def _generate_gasp() -> tuple:
 
 
 def _generate_sfnt_names(target: Target) -> tuple:
-    subfamily_name = target._style.subfamily_name()
-    subfamily_id = target._style.subfamily_id()
+    subfamily_name = target.style().subfamily_name()
+    subfamily_id = target.style().subfamily_id()
 
     sfnt_dict = {
         "Copyright": "\n".join([
@@ -101,7 +103,7 @@ def _generate_sfnt_names(target: Target) -> tuple:
             "JetBrains Mono: (C) 2020 The JetBrains Mono Project.",
             "Nerd Font: (C) 2014 Ryan L McIntyre.",
         ]),
-        "Family": f"Momiage Mono",
+        "Family": "Momiage Mono",
         "SubFamily": subfamily_name,
         "UniqueID": f"{target.version()};MomiageMono-{subfamily_id}",
         "Fullname": f"Momiage Mono {subfamily_name}",

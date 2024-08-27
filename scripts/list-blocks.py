@@ -1,7 +1,8 @@
 import sys
-from mmtool.unicode import unicode_block_of
+
 import fontforge
 
+from mmtool.unicode import unicode_block_of
 
 font = fontforge.open(sys.argv[1])
 base_em = font.em

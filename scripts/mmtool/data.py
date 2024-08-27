@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 REPO_ROOT = Path(__file__).parent.parent.parent
 REPO_FONTS = REPO_ROOT / "fonts"
 REPO_DIST = REPO_ROOT / "dist"
@@ -20,10 +19,7 @@ class Style:
         self._italic = italic
 
     def weight_name(self) -> str:
-        if self._weight is None:
-            return "Regular"
-        else:
-            return self._weight
+        return "Regular" if self._weight is None else self._weight
 
     def weight_value(self):
         return WEIGHT_VALUES[self.weight_name()]
