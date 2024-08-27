@@ -58,7 +58,7 @@ class Target:
         return self._style
 
     def gemg_path(self) -> str:
-        return str(REPO_FONTS / "gen-ei-mono-go" / self._gen_ei_mono_go)
+        return str(REPO_FONTS / self._gen_ei_mono_go)
 
     def jbm_path(self) -> str:
-        return str(REPO_FONTS / "jetbrains-mono" / self._jetbrains_mono)
+        return str(REPO_FONTS / self._jetbrains_mono)

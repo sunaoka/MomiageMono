@@ -45,32 +45,32 @@ GENEI_TRANSFORMS: dict[tuple[str, bool], Any] = {
 }
 
 VERSION = f"1.1-{date.today()}"
-TARGETS = [
-    Target(
+TARGETS = {
+    "MomiageMono-Regular.ttf": Target(
         VERSION,
         Style(None, False),
         "GenEiMonoGothic-Regular.ttf",
         "JetBrainsMono-Regular.ttf"
     ),
-    Target(
+    "MomiageMono-Italic.ttf": Target(
         VERSION,
         Style(None, True),
         "GenEiMonoGothic-Regular.ttf",
         "JetBrainsMono-Italic.ttf"
     ),
-    Target(
+    "MomiageMono-Bold.ttf": Target(
         VERSION,
         Style("Bold", False),
         "GenEiMonoGothic-Bold.ttf",
         "JetBrainsMono-Bold.ttf"
     ),
-    Target(
+    "MomiageMono-BoldItalic.ttf": Target(
         VERSION,
         Style("Bold", True),
         "GenEiMonoGothic-Bold.ttf",
         "JetBrainsMono-BoldItalic.ttf"
     ),
-]
+}
 
 
 def _copy_genei_mono_gothic(font: fontforge.font, target: Target):
@@ -151,8 +151,10 @@ def generate_momiage_mono(target: Target, filename: Path):
     )
 
 
-for target in TARGETS:
-    target_style = target.style()
-    target_filename = REPO_DIST / \
-        f"MomiageMono-{target_style.subfamily_id()}.ttf"
-    generate_momiage_mono(target, target_filename)
+def main():
+    filename = sys.argv[1]
+    generate_momiage_mono(TARGETS[filename], REPO_DIST / filename)
+
+
+if __name__ == "__main__":
+    main()
